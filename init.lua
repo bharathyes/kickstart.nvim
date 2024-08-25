@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -189,6 +189,21 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Tab navigation keybinds
+--   gt   Previous
+--   gT   Next
+--   2gt  Second tab
+vim.keymap.set('n', '<leader>1', '1gt', { desc = 'Switch to tab 1' })
+vim.keymap.set('n', '<leader>2', '2gt', { desc = 'Switch to tab 2' })
+vim.keymap.set('n', '<leader>3', '3gt', { desc = 'Switch to tab 3' })
+vim.keymap.set('n', '<leader>4', '4gt', { desc = 'Switch to tab 4' })
+vim.keymap.set('n', '<leader>5', '5gt', { desc = 'Switch to tab 5' })
+vim.keymap.set('n', '<leader>6', '6gt', { desc = 'Switch to tab 6' })
+vim.keymap.set('n', '<leader>7', '7gt', { desc = 'Switch to tab 7' })
+vim.keymap.set('n', '<leader>8', '8gt', { desc = 'Switch to tab 8' })
+vim.keymap.set('n', '<leader>9', '9gt', { desc = 'Switch to tab 9' })
+vim.keymap.set('n', '<leader>0', ":tablast<c', '>", { desc = 'Switch to previous used tab' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -452,7 +467,9 @@ require('lazy').setup({
       },
     },
   },
+
   { 'Bilal2453/luvit-meta', lazy = true },
+
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -877,13 +894,14 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'go' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -948,17 +966,18 @@ require('lazy').setup({
 })
 
 -- Hyprlang LSP
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
-  pattern = { '*.hl', 'hypr*.conf' },
-  callback = function(event)
-    print(string.format('starting hyprls for %s', vim.inspect(event)))
-    vim.lsp.start {
-      name = 'hyprlang',
-      cmd = { 'hyprls' },
-      root_dir = vim.fn.getcwd(),
-    }
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+--   pattern = { '*.hl', 'hypr*.conf' },
+--   callback = function(event)
+--     print(string.format('starting hyprls for %s', vim.inspect(event)))
+--     vim.lsp.start {
+--       name = 'hyprlang',
+--       cmd = { 'hyprls' },
+--       root_dir = vim.fn.getcwd(),
+--     }
+--   end,
+-- })
+--
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
